@@ -1,0 +1,17 @@
+// src/components/Sidebar.scss
+
+// Import global styles if you need access to global variables
+@import '../styles.scss';  // Import global styles to access variables
+
+.custom-sidebar {
+  background-color: #5a4a9c;  // Use the global primary color
+  color: $secondary;           // Use the global secondary color
+}
+
+.custom-sidebar .nav-link {
+  color: $secondary;           // Customize the link color
+}
+
+.custom-sidebar .nav-link:hover {
+  color: lighten($primary, 10%);  // Customize hover color
+}

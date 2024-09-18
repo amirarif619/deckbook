@@ -20,14 +20,14 @@ const cardSlice = createSlice({
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload; 
     },
-    setNewCardResults(state, action) {
+    setNewCardResults: (state, action) => {
       state.newCardResults = action.payload;
     },
-    addCard(state, action) {
-      state.cards.push(action.payload);
+    addCard: (state, action) => {
+      state.cardList.push(action.payload);
     },
-    removeCard(state, action) {
-      state.cards = state.cards.filter(card => card.id !== action.payload)
+    removeCard: (state, action) => {
+      state.cardList = state.cardList.filter(card => card.id !== action.payload)
     }
   },
 });

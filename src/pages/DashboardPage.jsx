@@ -5,7 +5,7 @@ import DashboardLayout from '../components/DashboardLayout';
 function DashboardPage() {
   return (
     <DashboardLayout>
-      <h1>Dashboard</h1>
+      <h1>Dashboard DashboardLayout</h1>
       {/* Your dashboard content */}
     </DashboardLayout>
   );

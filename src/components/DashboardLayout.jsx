@@ -6,10 +6,10 @@ function DashboardLayout({ children }) {
     <div className="container-fluid p-0">
       <AppNavbar />
       <div className="row">
-        <div className="col-2">
+      <div className="col-2 vh-100 bg-dark">
           <Sidebar />
         </div>
-        <div className="col-10">
+        <div className="col-10 p-4">
           {children} {/* Main content goes here */}
         </div>
       </div>

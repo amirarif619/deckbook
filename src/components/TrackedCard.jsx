@@ -82,36 +82,30 @@ function TrackedCard({ cardId, cardImage, cardName, initialMarketPrice, interval
   }
 
   return (
-    <Card className="p-3">
+    <Card className="p-3 mb-4" >
          <Card.Header as="h5">Tracked Card</Card.Header>
       <Card.Body>
         <Row>
-          {/* Image on the left */}
+        
           <Col md={4}>
             <Card.Img src={cardImage || cardDetails?.data?.images?.small} alt={cardName || cardDetails?.data?.name} />
           </Col>
 
-          {/* Tracked card stats on the right */}
           <Col md={8}>
             <Card.Title>{cardName || cardDetails?.data?.name}</Card.Title>
-            
-            {/* Current and Last Market Price */}
+           
             <Card.Text>
               Current Market Price: 
-              <span style={{ color: 'green', fontWeight: 'bold' }}>
-                $ {marketPrice.toFixed(2)}
-              </span>
+              
+                $ <span className="text-success fw-bold">${marketPrice.toFixed(2)}</span>
+             
             </Card.Text>
 
             <Card.Text>
-              Last Market Price: 
-              <span style={{ color: 'gray', fontWeight: 'bold' }}>
-                {lastMarketPrice !== null ? `$ ${lastMarketPrice.toFixed(2)}` : 'N/A'}
-              </span>
+              Last Market Price: <span className="text-secondary fw-bold">${lastMarketPrice || 'N/A'}</span>
             </Card.Text>
-
             {/* Input field for setting the interval */}
-            <Form.Group controlId="intervalInput">
+            <Form.Group controlId="intervalInput" className="mt-3">
               <Form.Label>Set Tracker Interval (Hours)</Form.Label>
               <Form.Control
                 type="number"
@@ -120,13 +114,13 @@ function TrackedCard({ cardId, cardImage, cardName, initialMarketPrice, interval
                 min="1"
               />
             </Form.Group>
-            <Button variant="danger" className="mt-2" onClick={handleSetInterval}>
+            <Button variant="danger" className="mt-3" onClick={handleSetInterval}>
               Set Tracker Interval
             </Button>
 
             {/* Display the countdown timer */}
-            <div className="mt-4">
-              <h4>Next Update In: {formatTime(timeLeft)}</h4>
+            <div className="mt-3">
+              <h5>Next Update In: {formatTime(timeLeft)}</h5>
             </div>
           </Col>
         </Row>

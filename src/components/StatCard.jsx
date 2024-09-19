@@ -50,12 +50,9 @@ function AnimatedNumberCard({
   }, [targetNumber, duration, isMoney]); // Dependencies: targetNumber, duration, and isMoney
 
   return (
-    <Card
-      className={className}
-      style={{ minHeight: '150px', textAlign: 'center', padding: '40px' }}
-    >
+    <Card className="text-center mb-4 h-100">
       <Card.Body>
-        <Card.Title>{title}</Card.Title>
+        <Card.Title className="mt-5">{title}</Card.Title>
        
           <h1>{isMoney ? `$ ${displayNumber}` : displayNumber}</h1>
        

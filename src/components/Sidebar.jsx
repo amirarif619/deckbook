@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function Sidebar() {
   return (
     <Container  fluid className="custom-sidebar">
-      <Nav  className="flex-column text-center text-white" >
+      <Nav  className="flex-column text-center text-white vh-100" >
         <Nav.Link as={Link} to="/dashboard">Home</Nav.Link>
         <Nav.Link as={Link} to="/collection">My Collection</Nav.Link>
         <Nav.Link as={Link} to="/wishlist">My Wishlist</Nav.Link>

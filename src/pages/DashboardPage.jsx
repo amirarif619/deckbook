@@ -41,6 +41,7 @@ function DashboardPage() {
     
     <DashboardLayout>
     <Container fluid>
+    <h2 className="mb-4 mt-2">Your Dashboard</h2>
       <Row>
         <Col md={8}>
           <Miniview

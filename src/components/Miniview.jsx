@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col';
 
 function Miniview({ className, title, buttonText, recentCards = [] }) {
   return (
-    <Card className={className} style={{ width: '100%', padding: '5px' }}>¬
+    <Card className={className} style={{ width: '100%', padding: '5px' }}>
     <Card.Body>
       <Row className="d-flex align-items-center mb-3">
         <Col>

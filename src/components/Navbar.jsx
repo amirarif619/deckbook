@@ -7,15 +7,15 @@ import { faD } from '@fortawesome/free-solid-svg-icons'; // Import the specific 
 function MainNavbar() {
     return (
       <Navbar bg="dark" expand="lg">
-        <div className="d-flex align-items-center border-bottom"> {/* Flexbox for alignment */}
+        <div className="d-flex align-items-center "> {/* Flexbox for alignment */}
           <FontAwesomeIcon icon={faD} className="mr-2 p-2" /> {/* Add some margin */}
-          <Navbar.Brand as={Link} to="/">DeckBook</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/" className=" text-light">DeckBook</Navbar.Brand>
         </div>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav>
-            <Nav.Link href="#">User</Nav.Link>
-            <Nav.Link href="#">Logout</Nav.Link>
+          <Nav.Link href="#" className="text-light">User</Nav.Link> {/* Make User white */}
+          <Nav.Link href="#" className="text-light">Logout</Nav.Link> {/* Make Logout white */}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

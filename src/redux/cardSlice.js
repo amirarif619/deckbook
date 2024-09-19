@@ -16,6 +16,11 @@ const cardSlice = createSlice({
     },
     setSelectedCard: (state, action) => {
         state.selectedCard = action.payload; 
+        state.showModal = true;
+    },
+    clearSelectedCard: (state) => {
+      state.selectedCard = null;
+      state.showModal = false; 
     },
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload; 
@@ -32,5 +37,5 @@ const cardSlice = createSlice({
   },
 });
 
-export const { setCards, setSelectedCard, setSearchQuery, setNewCardResults, addCard, removeCard } = cardSlice.actions;
+export const { setCards, setSelectedCard, clearSelectedCard, setSearchQuery, setNewCardResults, addCard, removeCard } = cardSlice.actions;
 export default cardSlice.reducer;

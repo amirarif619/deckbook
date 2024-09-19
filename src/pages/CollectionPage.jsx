@@ -10,6 +10,7 @@ import AddCardModal from '../components/AddCardModal';
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addCard } from '../redux/cardSlice'
+import CardInfoModal from '../components/CardInfoModal';
 
 function CollectionPage() {
 
@@ -17,22 +18,37 @@ function CollectionPage() {
   const cardList = useSelector(state => state.cards.cardList);
 
   const [trigger, { error, isLoading }] = useLazyGetCardsQuery();
-  const [showModal, setShowModal] = useState(false) 
 
-   // Function to open the modal
+  const [showAddCardModal, setShowAddCardModal] = useState(false);  // Renamed for AddCardModal
+  const [showCardInfoModal, setShowCardInfoModal] = useState(false); // New state for CardInfoModal
+  const [selectedCard, setSelectedCard] = useState(null);
+
+
+  // Function to open the AddCard modal
   const handleAddNewCardClick = () => {
-    setShowModal(true);
+    setShowAddCardModal(true);
   };
-
-  // Function to close the modal
-  const handleCloseModal = () => {
-    setShowModal(false);
+   // Function to open the modal
+   const handleCloseAddCardModal = () => {
+    setShowAddCardModal(false);
   };
 
   // Function to add a card
   const handleAddCard = (card) => {
     dispatch(addCard(card)); // Dispatch the card to Redux
-    setShowModal(false); 
+    setShowAddCardModal(false); 
+  };
+
+  // Function to open CardInfoModal when clicking on a card
+  const handleCardClick = (card) => {
+    setSelectedCard(card); // Set the clicked card as the selected card
+    setShowCardInfoModal(true); // Show CardInfoModal
+  };
+
+  // Function to close the CardInfoModal
+  const handleCloseCardInfoModal = () => {
+    setShowCardInfoModal(false);
+    setSelectedCard(null); // Clear selected card when closing
   };
 
   if (isLoading) return <p>Loading cards...</p>;
@@ -66,6 +82,7 @@ function CollectionPage() {
                   imageUrl={card.images.small}
                   title={card.name}
                   description={`${card.set.name}`}
+                  onClick={() => handleCardClick(card)}
                 />
               </Col>
             ))}
@@ -74,9 +91,16 @@ function CollectionPage() {
 
          {/* AddCardModal */}
          <AddCardModal 
-          show={showModal} 
-          handleClose={handleCloseModal} 
+          show={showAddCardModal} 
+          handleClose={handleCloseAddCardModal} 
           onAddCard={handleAddCard}
+        />
+
+  {/* CardInfoModal */}
+  <CardInfoModal 
+          show={showCardInfoModal} 
+          handleClose={handleCloseCardInfoModal}
+          card={selectedCard} // Pass the selected card to the modal
         />
 
       </DashboardLayout>

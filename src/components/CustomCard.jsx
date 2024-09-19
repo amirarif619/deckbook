@@ -2,7 +2,7 @@ import { Card } from 'react-bootstrap';
 import { useState } from 'react';
 import './CustomCard.css'; 
 
-function CustomCard({ imageUrl, title, description }) {
+function CustomCard({ imageUrl, title, description, onClick }) {
   const [imageLoaded, setImageLoaded] = useState(false); // Track image load state
 
   const handleImageLoad = () => {
@@ -10,7 +10,7 @@ function CustomCard({ imageUrl, title, description }) {
   };
 
   return (
-    <div className="custom-card-container h-100">
+    <div className="custom-card-container h-100" onClick={onClick}>
       <Card className="h-100 box-shadow mx-auto my-1" style={{ width: '12rem' }}>
         {/* Placeholder Image (Pokémon card back) */}
         {!imageLoaded && (

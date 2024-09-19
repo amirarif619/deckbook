@@ -1,5 +1,5 @@
 import { Card } from 'react-bootstrap';
-import './CustomCard.css'; // Assuming you will add CSS for styling
+import './CustomCard.css'; 
 
 function CustomCard({ imageUrl, title, description }) {
   return (

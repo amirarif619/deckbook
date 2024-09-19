@@ -33,9 +33,16 @@ const cardSlice = createSlice({
     },
     removeCard: (state, action) => {
       state.cardList = state.cardList.filter(card => card.id !== action.payload)
-    }
+    },
+    updateCard: (state, action) => {
+      const { id, updates } = action.payload;
+      const cardIndex = state.cardList.findIndex(card => card.id === id);
+      if (cardIndex !== -1) {
+        state.cardList[cardIndex] = { ...state.cardList[cardIndex], ...updates };
+      }
+    },
   },
 });
 
-export const { setCards, setSelectedCard, clearSelectedCard, setSearchQuery, setNewCardResults, addCard, removeCard } = cardSlice.actions;
+export const { setCards, setSelectedCard, clearSelectedCard, setSearchQuery, setNewCardResults, addCard, removeCard, updateCard } = cardSlice.actions;
 export default cardSlice.reducer;

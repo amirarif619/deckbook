@@ -1,77 +1,106 @@
 import { Modal, Row, Col, Button } from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { removeCard } from '../redux/cardSlice'
-import { useDispatch } from 'react-redux'
-import { useState } from 'react';
+import { removeCard, updateCard } from '../redux/cardSlice';
+import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
 import DeleteConfirmationModal from './DeleteConfirmationModal';
+import EditCardModal from './EditCardModal';
 
 const CardInfoModal = ({ show, handleClose, card, canDelete }) => {
-    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false); 
-   const dispatch = useDispatch();
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [localCard, setLocalCard] = useState(card); // Local state to manage the card info
+  const dispatch = useDispatch();
 
-   const handleDelete = () => {
-    if (card?.id) {
-      dispatch(removeCard(card.id)); // Ensure card.id exists
+  // Use useEffect to update localCard whenever the card prop changes
+  useEffect(() => {
+    setLocalCard(card);
+  }, [card]);
+
+  const handleDelete = () => {
+    if (localCard?.id) {
+      dispatch(removeCard(localCard.id)); // Remove the card from Redux
       handleClose(); // Close the modal after deletion
-      setShowDeleteConfirm(false)
+      setShowDeleteConfirm(false);
     }
   };
 
   const openDeleteConfirm = () => setShowDeleteConfirm(true);
-  
-  // Close the confirmation modal
   const closeDeleteConfirm = () => setShowDeleteConfirm(false);
 
+  const openEditModal = () => setShowEditModal(true); // Open Edit Modal
+  const closeEditModal = () => setShowEditModal(false); // Close Edit Modal
+
+  const handleSaveEdit = (newCardData) => {
+    // Update local state to reflect changes immediately
+    setLocalCard(newCardData);
+
+    // Dispatch action to update the specific card in the Redux store by ID
+    dispatch(updateCard({
+      id: localCard.id, // Use the card ID to target the correct card
+      updates: newCardData, // Pass the updated card data
+    }));
+
+    closeEditModal(); // Close the Edit modal after saving
+  };
 
   return (
     <>
-    <Modal show={show} onHide={handleClose} size="xl" centered>
-      {/*<Modal.Header closeButton>
-        <Modal.Title>{card?.name || 'Card Info'}</Modal.Title> 
-      </Modal.Header> */}
-      <Modal.Body>
-        <Row>
-          {/* Left side: Card Image */}
-          <Col xs={12} md={6}>
-            <img
-              src={card?.images?.large}
-              alt={card?.name}
-              style={{ width: '100%' }}
-            />
-          </Col>
-          {/* Right side: Card Details */}
-          <Col xs={12} md={6}>
-           <h3 className='mt-3 mb-3'>{card?.name}</h3>
-            <ListGroup >
-      <ListGroup.Item><Button variant="success">Set </Button> {card?.set?.series}</ListGroup.Item>
-      <ListGroup.Item><Button variant="primary">Artist </Button> {card?.artist}</ListGroup.Item>
-      <ListGroup.Item><Button variant="warning">Release Date </Button> {card?.set?.releaseDate}</ListGroup.Item>
-      <ListGroup.Item><Button variant="info">Rarity </Button> {card?.rarity}</ListGroup.Item>
-      <ListGroup.Item><Button variant="info">PSA Grade</Button> {card?.psaGrade || 'Ungraded'}</ListGroup.Item> {/* PSA Grade */}
-      <ListGroup.Item><Button variant="info">Notes</Button> {card?.notes || 'No notes available'}</ListGroup.Item> {/* Notes */}
-    </ListGroup>
-          </Col>
-        </Row>
-      </Modal.Body>
-      <Modal.Footer>
-    {canDelete && (
-              <Button variant="danger" onClick={openDeleteConfirm}>
-                Delete Card
-              </Button>
-            )}
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-      </Modal.Footer>
-    </Modal>
+      <Modal show={show} onHide={handleClose} size="xl" centered>
+        <Modal.Body>
+          <Row>
+            {/* Left side: Card Image */}
+            <Col xs={12} md={6}>
+              <img
+                src={localCard?.images?.large}
+                alt={localCard?.name}
+                style={{ width: '100%' }}
+              />
+            </Col>
+            {/* Right side: Card Details */}
+            <Col xs={12} md={6}>
+              <h3 className='mt-3 mb-3'>{localCard?.name}</h3>
+              <ListGroup>
+                <ListGroup.Item><Button variant="success">Set</Button> {localCard?.set?.series}</ListGroup.Item>
+                <ListGroup.Item><Button variant="primary">Artist</Button> {localCard?.artist}</ListGroup.Item>
+                <ListGroup.Item><Button variant="warning">Release Date</Button> {localCard?.set?.releaseDate}</ListGroup.Item>
+                <ListGroup.Item><Button variant="info">Rarity</Button> {localCard?.rarity}</ListGroup.Item>
+                <ListGroup.Item><Button variant="info">PSA Grade</Button> {localCard?.psaGrade || 'Ungraded'}</ListGroup.Item>
+                <ListGroup.Item><Button variant="info">Notes</Button> {localCard?.notes || 'No notes available'}</ListGroup.Item>
+              </ListGroup>
+            </Col>
+          </Row>
+        </Modal.Body>
+        <Modal.Footer>
+          {canDelete && (
+            <Button variant="danger" onClick={openDeleteConfirm}>
+              Delete Card
+            </Button>
+          )}
 
-             {/* Confirmation Modal */}
+          <Button variant="primary" onClick={openEditModal}>
+            Edit Card
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Confirmation Modal */}
       <DeleteConfirmationModal
         show={showDeleteConfirm}
         handleClose={closeDeleteConfirm}
-        handleConfirm={handleDelete} // Trigger actual delete on confirmation
+        handleConfirm={handleDelete} // Handle card deletion
       />
 
+      {/* Edit Card Modal */}
+      <EditCardModal
+        show={showEditModal}
+        handleClose={closeEditModal}
+        card={localCard} // Pass the current local card data to edit
+        onSave={handleSaveEdit} // Handle the save action
+      />
     </>
   );
 };

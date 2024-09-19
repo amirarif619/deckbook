@@ -26,10 +26,10 @@ const CardInfoModal = ({ show, handleClose, card, canDelete }) => {
 
   return (
     <>
-    <Modal show={show} onHide={handleClose} size="lg" centered>
-      <Modal.Header closeButton>
-        <Modal.Title>{card?.name || 'Card Info'}</Modal.Title>
-      </Modal.Header>
+    <Modal show={show} onHide={handleClose} size="xl" centered>
+      {/*<Modal.Header closeButton>
+        <Modal.Title>{card?.name || 'Card Info'}</Modal.Title> 
+      </Modal.Header> */}
       <Modal.Body>
         <Row>
           {/* Left side: Card Image */}
@@ -42,7 +42,7 @@ const CardInfoModal = ({ show, handleClose, card, canDelete }) => {
           </Col>
           {/* Right side: Card Details */}
           <Col xs={12} md={6}>
-            <h3 className='mt-3 mb-3'>{card?.name}</h3>
+           <h3 className='mt-3 mb-3'>{card?.name}</h3>
             <ListGroup >
       <ListGroup.Item><Button variant="success">Set </Button> {card?.set?.series}</ListGroup.Item>
       <ListGroup.Item><Button variant="primary">Artist </Button> {card?.artist}</ListGroup.Item>

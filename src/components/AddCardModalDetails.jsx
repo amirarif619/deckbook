@@ -20,11 +20,21 @@ const AddCardModalDetails = ({ show, handleClose, card, handleCloseParentModal }
     setCardAdded(true);; // Close the modal after adding
 
 
+  // Reset the state and close both modals after a short delay
   setTimeout(() => {
-    setCardAdded(false); // Reset the state after the message
+    setCardAdded(false);
+    setNotes(''); // Reset notes field
+    setPsaGrade('Ungraded'); // Reset PSA grade field
     handleClose(); // Close the current modal
     handleCloseParentModal(); // Close the parent modal (AddCardModal)
   }, 800); // Show the message for 0.8 seconds before closing the modal
+};
+
+// Reset the notes and PSA grade when the modal is closed
+const resetModalState = () => {
+  setNotes(''); // Reset notes
+  setPsaGrade('Ungraded'); // Reset PSA grade to default
+  handleClose(); // Call the parent function to close the modal
 };
 
   return (
@@ -70,6 +80,12 @@ const AddCardModalDetails = ({ show, handleClose, card, handleCloseParentModal }
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
                 {/* Add more PSA grades as needed */}
               </Form.Control>
             </Form.Group>
@@ -91,7 +107,7 @@ const AddCardModalDetails = ({ show, handleClose, card, handleCloseParentModal }
       <Modal.Footer>
         {!cardAdded && (
           <>
-            <Button variant="secondary" onClick={handleClose}>Go Back</Button>
+            <Button variant="secondary" onClick={resetModalState}>Go Back</Button>
             <Button variant="primary" onClick={handleAddCard}>Add Card</Button>
           </>
         )}

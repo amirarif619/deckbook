@@ -2,7 +2,6 @@ import { Modal, Row, Col, Button } from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { removeCard } from '../redux/cardSlice'
 import { useDispatch } from 'react-redux'
-
 import { useState } from 'react';
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 
@@ -48,6 +47,8 @@ const CardInfoModal = ({ show, handleClose, card, canDelete }) => {
       <ListGroup.Item><Button variant="primary">Artist </Button> {card?.artist}</ListGroup.Item>
       <ListGroup.Item><Button variant="warning">Release Date </Button> {card?.set?.releaseDate}</ListGroup.Item>
       <ListGroup.Item><Button variant="info">Rarity </Button> {card?.rarity}</ListGroup.Item>
+      <ListGroup.Item><Button variant="info">PSA Grade</Button> {card?.psaGrade || 'Ungraded'}</ListGroup.Item> {/* PSA Grade */}
+      <ListGroup.Item><Button variant="info">Notes</Button> {card?.notes || 'No notes available'}</ListGroup.Item> {/* Notes */}
     </ListGroup>
           </Col>
         </Row>

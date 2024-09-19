@@ -58,12 +58,13 @@ function CollectionPage() {
   const firstPageCards = cardList.slice(0, cardsPerPage - 1);
 
   return (
+    
+      <DashboardLayout>
     <Container className={`mt-4 ${showAddCardModal || showCardInfoModal ? 'blur-background' : ''}`}>
-        <DashboardLayout>
+
         <h2 className="text-center mb-4">My Collection</h2>
 
-      
-
+  
          {/* Card Grid Layout */}
         <Card style={{ width: '100%', padding: '30px', margin: '20px 0' }}>
           <Row>
@@ -103,8 +104,8 @@ function CollectionPage() {
           canDelete={true}
         />
 
-      </DashboardLayout>
     </Container>
+      </DashboardLayout>
   );
 }
 

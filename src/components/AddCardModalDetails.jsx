@@ -1,13 +1,20 @@
 import { Modal, Button, Row, Col, Form } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addCard } from '../redux/cardSlice'; // Redux slice to add the card
+import { addCard ,  } from '../redux/cardSlice'; // Redux slice to add the card
 
-const AddCardModalDetails = ({ show, handleClose, card, handleCloseParentModal }) => {
+const AddCardModalDetails = ({ show, handleClose, card, handleCloseParentModal, isEditMode }) => {
   const [psaGrade, setPsaGrade] = useState('Ungraded'); // Local state for PSA Grade
   const [notes, setNotes] = useState(''); // Local state for custom notes
   const [cardAdded, setCardAdded] = useState(false);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isEditMode && card) {
+      setPsaGrade(card.psaGrade || 'Ungraded'); // Prefill the PSA grade
+      setNotes(card.notes || ''); // Prefill the notes
+    }
+  }, [isEditMode, card]);
 
   const handleAddCard = () => {
     const newCard = {

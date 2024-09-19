@@ -1,60 +1,51 @@
-// src/pages/LoginPage.jsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { hideSidebar, showSidebar } from '../redux/sidebarSlice';
+import { setUser } from '../redux/userSlice';
+import { useNavigate } from 'react-router-dom';
 
-function LoginPage() {
+function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    if (username && password) {
-      dispatch(showSidebar()); // Ensure the sidebar is shown before navigating
+
+    // Hardcoded user credentials
+    if (username === 'demo' && password === 'password123') {
+      const user = { username: 'demo', name: 'Demo User' };
+
+      // Dispatch the hardcoded user to Redux
+      dispatch(setUser(user));
+
+      // Navigate to the dashboard after successful login
       navigate('/dashboard');
     } else {
-      alert('Please enter a username and password');
+      alert('Invalid credentials');
     }
   };
 
-  // Hide the sidebar when the LoginPage is rendered
-  React.useEffect(() => {
-    dispatch(hideSidebar());
-  }, [dispatch]);
-
   return (
-    <div className="container mt-5">
-      <h1 className="text-center">Login</h1>
-      <form onSubmit={handleSubmit} className="mt-4">
-        <div className="mb-3">
-          <label htmlFor="username" className="form-label">Username</label>
-          <input
-            type="text"
-            className="form-control"
-            id="username"
-            placeholder="Enter username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary w-100">Login</button>
+    <div className="login-container">
+      <h2>Login</h2>
+      <form onSubmit={handleLogin}>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">Login</button>
       </form>
     </div>
   );
 }
 
-export default LoginPage;
+export default Login;

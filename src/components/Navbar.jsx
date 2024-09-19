@@ -2,9 +2,21 @@ import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faD } from '@fortawesome/free-solid-svg-icons'; // Import the specific icon
-
+import { logout } from '../redux/userSlice'; // Import logout action
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 function MainNavbar() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // Logout function
+  const handleLogout = () => {
+    dispatch(logout()); // Dispatch logout action to clear user from Redux store
+    navigate('/login'); // Redirect to login page after logout
+  };
+
+
     return (
       <Navbar bg="dark" expand="lg">
         <div className="d-flex align-items-center "> {/* Flexbox for alignment */}
@@ -15,7 +27,7 @@ function MainNavbar() {
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav>
           <Nav.Link href="#" className="text-light">User</Nav.Link> {/* Make User white */}
-          <Nav.Link href="#" className="text-light">Logout</Nav.Link> {/* Make Logout white */}
+          <Nav.Link onClick={handleLogout} href="#" className="text-light">Logout</Nav.Link> {/* Make Logout white */}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

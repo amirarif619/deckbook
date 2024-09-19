@@ -9,6 +9,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addCard } from '../redux/cardSlice'
 import CardInfoModal from '../components/CardInfoModal';
+import './collectionpage.css';
 
 function CollectionPage() {
 
@@ -57,7 +58,7 @@ function CollectionPage() {
   const firstPageCards = cardList.slice(0, cardsPerPage - 1);
 
   return (
-    <Container className="mt-4">
+    <Container className={`mt-4 ${showAddCardModal || showCardInfoModal ? 'blur-background' : ''}`}>
         <DashboardLayout>
         <h2 className="text-center mb-4">My Collection</h2>
 

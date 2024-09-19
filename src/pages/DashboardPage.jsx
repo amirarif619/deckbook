@@ -8,9 +8,6 @@ import DashboardLayout from '../components/DashboardLayout';
 import { useSelector } from 'react-redux'
 
 
-const estimatedNetWorth = 3454.35; // Sample data
-
-
 function DashboardPage() {
 
   const cardList = useSelector((state) => state.cards.cardList) || [] ; // Access the collection from Redux state
@@ -18,6 +15,13 @@ function DashboardPage() {
   const numberOfCardsCollected = cardList.length;
   // Get the 3 most recently added cards (assuming they are added in chronological order)
   const recentCards = cardList.slice(-3).reverse()
+
+  const totalMarketValue = cardList.reduce((total, card) => {
+    const marketPrice = card.tcgplayer?.prices?.holofoil?.market 
+    || card.tcgplayer?.prices?.reverseHolofoil?.market 
+    || 0; // Use 0 if market price is not available
+    return total + marketPrice;
+  }, 0);
 
   return (
     
@@ -53,7 +57,7 @@ function DashboardPage() {
           <StatCard
             className="m-3"
             title="Estimated Collection Net Worth:"
-            targetNumber={estimatedNetWorth}
+            targetNumber={totalMarketValue.toFixed(2)}
             duration={1000}
             isMoney={true} // Enabling money format
           />

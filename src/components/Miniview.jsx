@@ -16,7 +16,7 @@ function Miniview({ className, title, buttonText, recentCards = [] }) {
           <Card.Title>{title}</Card.Title>
         </Col>
         <Col className="ms-auto" style={{ textAlign: 'right' }}>
-          <Button variant="primary">{buttonText}</Button>
+          <Button variant="danger">{buttonText}</Button>
         </Col>
       </Row>
 

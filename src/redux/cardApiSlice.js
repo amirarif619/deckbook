@@ -5,7 +5,7 @@ export const cardApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: 'https://api.pokemontcg.io/v2/',
         prepareHeaders: (headers) => {
-            headers.set('X-Api-Key', 'your-api-key-here'); // Add your API key here
+            headers.set('X-Api-Key', 'my-api-key'); 
             return headers;
           },
         }),

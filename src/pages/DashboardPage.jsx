@@ -6,7 +6,7 @@ import StatCard from '../components/StatCard'; // Adjust the path according to y
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DashboardLayout from '../components/DashboardLayout';
 import { useSelector } from 'react-redux'
-
+import TrackedCard from '../components/TrackedCard';
 
 function DashboardPage() {
 
@@ -22,6 +22,20 @@ function DashboardPage() {
     || 0; // Use 0 if market price is not available
     return total + marketPrice;
   }, 0);
+
+  const trackedCard = {
+    id: 'dp3-1', // Card ID for Ampharos
+    name: 'Ampharos',
+    images: {
+      small: 'https://images.pokemontcg.io/dp3/1.png',
+    },
+    tcgplayer: {
+      prices: {
+        market: 15.75,
+      },
+    },
+  };
+
 
   return (
     
@@ -47,11 +61,13 @@ function DashboardPage() {
       </Row>
       <Row>
         <Col md={8}>
-          <Miniview
-            className="p-3"
-            title="My Collection"
-            buttonText="Full Collection"
-          />
+        <TrackedCard
+              cardId={trackedCard.id}
+              cardImage={trackedCard.images?.small}
+              cardName={trackedCard.name}
+              initialMarketPrice={trackedCard.tcgplayer?.prices?.market || 0}
+              intervalHours={6} // You can set how often the price should be updated (in hours)
+            />
         </Col>
         <Col md={4}>
           <StatCard

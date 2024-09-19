@@ -14,7 +14,10 @@ export const cardApi = createApi({
             getCards: builder.query({
                 query: (searchTerm = '') => `cards?q=name:${encodeURIComponent(searchTerm)}&pageSize=20`,
             }),
+            getCardById: builder.query({
+                query: (cardId) => `cards/${cardId}`, // Fetch card by ID
+              }),
         }),
     });
 
-export const { useLazyGetCardsQuery } = cardApi;
+export const { useLazyGetCardsQuery, useLazyGetCardByIdQuery } = cardApi;

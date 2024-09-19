@@ -12,7 +12,7 @@ export const cardApi = createApi({
 
         endpoints: (builder) => ({
             getCards: builder.query({
-                query: () => 'cards?pagesSize=20',
+                query: (searchTerm = '') => `cards?q=name:${encodeURIComponent(searchTerm)}&pageSize=20`,
             }),
         }),
     });

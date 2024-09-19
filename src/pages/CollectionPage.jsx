@@ -2,16 +2,37 @@ import DashboardLayout from "../components/DashboardLayout"
 //import AddCardForm from '../components/AddCardForm'
 //import CardItem from '../components/CardItem'
 import { useLazyGetCardsQuery } from '../redux/cardApiSlice';
-import { Row, Col, Card, Button, Container, Form } from 'react-bootstrap';
+import { Row, Col, Card, Container,  } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CustomCard from '../components/CustomCard'
 import AddNewCard from "../components/AddNewCard";
+import AddCardModal from '../components/AddCardModal'; 
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { addCard } from '../redux/cardSlice'
 
 function CollectionPage() {
-  const [trigger, { data: cardList, error, isLoading }] = useLazyGetCardsQuery();
 
-  const handleSearch = () => {
-    trigger(); // Trigger the API call when needed (you can hook this up with a search field later)
+  const dispatch = useDispatch();
+  const cardList = useSelector(state => state.cards.cardList);
+
+  const [trigger, { error, isLoading }] = useLazyGetCardsQuery();
+  const [showModal, setShowModal] = useState(false) 
+
+   // Function to open the modal
+  const handleAddNewCardClick = () => {
+    setShowModal(true);
+  };
+
+  // Function to close the modal
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  // Function to add a card
+  const handleAddCard = (card) => {
+    dispatch(addCard(card)); // Dispatch the card to Redux
+    setShowModal(false); 
   };
 
   if (isLoading) return <p>Loading cards...</p>;
@@ -19,18 +40,14 @@ function CollectionPage() {
 
   const cardsPerPage = 12;
   const currentPage = 1; // Simulating we're on the first page for now
-  const firstPageCards = cardList?.data?.slice(0, cardsPerPage - 1);
+  const firstPageCards = cardList.slice(0, cardsPerPage - 1);
 
   return (
     <Container className="mt-4">
         <DashboardLayout>
-        <h2 className="text-center mb-4">My Pokémon Card Collection</h2>
+        <h2 className="text-center mb-4">My Collection</h2>
 
-        {/* Search Input (for future implementation) */}
-        <Form className="mb-4">
-          <Form.Control type="text" placeholder="Search for a card..." />
-          <Button onClick={handleSearch} className="mt-2">Search</Button>
-        </Form>
+      
 
          {/* Card Grid Layout */}
         <Card style={{ width: '100%', padding: '30px', margin: '20px 0' }}>
@@ -38,7 +55,7 @@ function CollectionPage() {
             {/* AddNewCard Placeholder - Display first only on the first page */}
             {currentPage === 1 && (
               <Col xs={12} md={6} lg={3} className="mb-4">
-                <AddNewCard />
+                <AddNewCard onClick={handleAddNewCardClick}/>
               </Col>
             )}
 
@@ -48,12 +65,20 @@ function CollectionPage() {
                 <CustomCard
                   imageUrl={card.images.small}
                   title={card.name}
-                  description={` ${card.set.name}`}
+                  description={`${card.set.name}`}
                 />
               </Col>
             ))}
           </Row>
         </Card>
+
+         {/* AddCardModal */}
+         <AddCardModal 
+          show={showModal} 
+          handleClose={handleCloseModal} 
+          onAddCard={handleAddCard}
+        />
+
       </DashboardLayout>
     </Container>
   );

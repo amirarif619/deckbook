@@ -5,11 +5,20 @@ import Miniview from '../components/Miniview'; // Adjust the path according to y
 import StatCard from '../components/StatCard'; // Adjust the path according to your folder structure
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DashboardLayout from '../components/DashboardLayout';
+import { useSelector } from 'react-redux'
 
-const numberOfCardsCollected = 50; // Sample data
+
 const estimatedNetWorth = 3454.35; // Sample data
 
+
 function DashboardPage() {
+
+  const cardList = useSelector((state) => state.cards.cardList) || [] ; // Access the collection from Redux state
+
+  const numberOfCardsCollected = cardList.length;
+  // Get the 3 most recently added cards (assuming they are added in chronological order)
+  const recentCards = cardList.slice(-3).reverse()
+
   return (
     
     <DashboardLayout>
@@ -18,8 +27,9 @@ function DashboardPage() {
         <Col md={8}>
           <Miniview
             className="p-3"
-            title="Wishlist"
-            buttonText="See Full List"
+            title="Recently Added"
+            buttonText="See Full Collection"
+            recentCards={recentCards}
           />
         </Col>
         <Col md={4}>

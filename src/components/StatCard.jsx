@@ -56,9 +56,9 @@ function AnimatedNumberCard({
     >
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        <Card.Text>
+       
           <h1>{isMoney ? `RM${displayNumber}` : displayNumber}</h1>
-        </Card.Text>
+       
       </Card.Body>
     </Card>
   );

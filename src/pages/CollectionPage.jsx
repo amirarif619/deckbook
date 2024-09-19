@@ -1,6 +1,4 @@
 import DashboardLayout from "../components/DashboardLayout"
-//import AddCardForm from '../components/AddCardForm'
-//import CardItem from '../components/CardItem'
 import { useLazyGetCardsQuery } from '../redux/cardApiSlice';
 import { Row, Col, Card, Container,  } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -101,6 +99,7 @@ function CollectionPage() {
           show={showCardInfoModal} 
           handleClose={handleCloseCardInfoModal}
           card={selectedCard} // Pass the selected card to the modal
+          canDelete={true}
         />
 
       </DashboardLayout>

@@ -61,12 +61,12 @@ const CardInfoModal = ({ show, handleClose, card, canDelete }) => {
             <Col xs={12} md={6}>
               <h3 className='mt-3 mb-3'>{localCard?.name}</h3>
               <ListGroup>
-                <ListGroup.Item><Button variant="success">Set</Button> {localCard?.set?.series}</ListGroup.Item>
-                <ListGroup.Item><Button variant="primary">Artist</Button> {localCard?.artist}</ListGroup.Item>
-                <ListGroup.Item><Button variant="warning">Release Date</Button> {localCard?.set?.releaseDate}</ListGroup.Item>
-                <ListGroup.Item><Button variant="info">Rarity</Button> {localCard?.rarity}</ListGroup.Item>
-                <ListGroup.Item><Button variant="info">PSA Grade</Button> {localCard?.psaGrade || 'Ungraded'}</ListGroup.Item>
-                <ListGroup.Item><Button variant="info">Notes</Button> {localCard?.notes || 'No notes available'}</ListGroup.Item>
+                <ListGroup.Item><Button variant="dark">Set</Button>   {localCard?.set?.series}</ListGroup.Item>
+                <ListGroup.Item><Button variant="dark">Artist</Button>   {localCard?.artist}</ListGroup.Item>
+                <ListGroup.Item><Button variant="dark">Release Date</Button>   {localCard?.set?.releaseDate}</ListGroup.Item>
+                <ListGroup.Item><Button variant="dark">Rarity</Button>   {localCard?.rarity}</ListGroup.Item>
+                <ListGroup.Item><Button variant="dark">PSA Grade</Button>   {localCard?.psaGrade || 'Ungraded'}</ListGroup.Item>
+                <ListGroup.Item><Button variant="dark">Notes</Button>  {localCard?.notes || 'No notes available'}</ListGroup.Item>
               </ListGroup>
             </Col>
           </Row>

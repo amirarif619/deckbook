@@ -24,10 +24,10 @@ function DashboardPage() {
   }, 0);
 
   const trackedCard = {
-    id: 'dp3-1', // Card ID for Ampharos
-    name: 'Ampharos',
+    id: 'base4-4', // Card ID for Ampharos
+    name: 'Charizard',
     images: {
-      small: 'https://images.pokemontcg.io/dp3/1.png',
+      small: "https://images.pokemontcg.io/base4/4_hires.png",
     },
     tcgplayer: {
       prices: {

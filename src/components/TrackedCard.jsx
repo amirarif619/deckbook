@@ -11,11 +11,14 @@ function TrackedCard({ cardId, cardImage, cardName, initialMarketPrice, interval
   // Lazy load the card by ID using RTK Query
   const [trigger, { data: cardDetails, isFetching, error }] = useLazyGetCardByIdQuery();
 
-  const [userInterval, setUserInterval] = useState(intervalHours); // For tracking user-set interval
-  const [inputInterval, setInputInterval] = useState(intervalHours); // For interval input
+  const savedInterval = JSON.parse(localStorage.getItem(`${cardId}_interval`)) || intervalHours;
+  const savedTimeLeft = JSON.parse(localStorage.getItem(`${cardId}_timeLeft`)) || savedInterval * 60 * 60;
+
+  const [userInterval, setUserInterval] = useState(savedInterval); // For tracking user-set interval
+  const [inputInterval, setInputInterval] = useState(savedInterval); // For interval input
   const [marketPrice, setMarketPrice] = useState(initialMarketPrice); // State for current market price
   const [lastMarketPrice, setLastMarketPrice] = useState(null); // State for last market price
-  const [timeLeft, setTimeLeft] = useState(userInterval * 60 * 60); // Time left for countdown in seconds
+  const [timeLeft, setTimeLeft] = useState(savedTimeLeft); // Time left for countdown in seconds
 
   useEffect(() => {
     // Fetch card data initially
@@ -30,6 +33,12 @@ function TrackedCard({ cardId, cardImage, cardName, initialMarketPrice, interval
     // Cleanup the interval when component unmounts
     return () => clearInterval(interval);
   }, [cardId, userInterval, trigger]);
+
+
+  useEffect(() => {
+    localStorage.setItem(`${cardId}_interval`, JSON.stringify(userInterval));
+    localStorage.setItem(`${cardId}_timeLeft`, JSON.stringify(timeLeft));
+  }, [userInterval, timeLeft, cardId]);
 
   // Update the market price and last market price after fetching new data
   useEffect(() => {

@@ -6,7 +6,7 @@ function AboutPage() {
 
   return (
   <DashboardLayout>
-  <h1>About Us</h1>;
+  <h1>UNDER CONSTRUCTION</h1>;
   </DashboardLayout>
   )
 }

@@ -5,7 +5,7 @@ function WishlistPage() {
   return (
     <div>
       <DashboardLayout>
-      WishlistPage
+     <h1> UNDER CONSTRUCTION</h1>
       </DashboardLayout>
       </div>
 

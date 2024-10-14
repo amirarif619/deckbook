@@ -1,5 +1,5 @@
 
-/*/ Define your custom colors using Sass variables
+/*/ deperecated
 $primary: #4e4051;       // Custom primary color
 $secondary: #c2cdea;     // Custom secondary color
 $font-family-base: 'Arial, sans-serif';
@@ -7,7 +7,7 @@ $font-family-base: 'Arial, sans-serif';
 
 @import 'bootstrap/scss/bootstrap';
 
-// Add any other global styles here
+// also abandoned this but left for future reference
 body {
   font-family: sans-serif;
   background-color: $primary;

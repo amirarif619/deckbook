@@ -8,29 +8,29 @@ import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function TrackedCard({ cardId, cardImage, cardName, initialMarketPrice, intervalHours }) {
-  // Lazy load the card by ID using RTK Query
+ 
   const [trigger, { data: cardDetails, isFetching, error }] = useLazyGetCardByIdQuery();
 
   const savedInterval = JSON.parse(localStorage.getItem(`${cardId}_interval`)) || intervalHours;
   const savedTimeLeft = JSON.parse(localStorage.getItem(`${cardId}_timeLeft`)) || savedInterval * 60 * 60;
 
-  const [userInterval, setUserInterval] = useState(savedInterval); // For tracking user-set interval
-  const [inputInterval, setInputInterval] = useState(savedInterval); // For interval input
-  const [marketPrice, setMarketPrice] = useState(initialMarketPrice); // State for current market price
-  const [lastMarketPrice, setLastMarketPrice] = useState(null); // State for last market price
-  const [timeLeft, setTimeLeft] = useState(savedTimeLeft); // Time left for countdown in seconds
+  const [userInterval, setUserInterval] = useState(savedInterval); 
+  const [inputInterval, setInputInterval] = useState(savedInterval); 
+  const [marketPrice, setMarketPrice] = useState(initialMarketPrice); 
+  const [lastMarketPrice, setLastMarketPrice] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(savedTimeLeft); 
 
   useEffect(() => {
-    // Fetch card data initially
+   
     trigger(cardId);
 
-    // Set up the interval for fetching the data
+    
     const interval = setInterval(() => {
       trigger(cardId);
-      setTimeLeft(userInterval * 60 * 60); // Reset the timer on each API call
-    }, userInterval * 60 * 60 * 1000); // Convert hours to milliseconds
+      setTimeLeft(userInterval * 60 * 60); 
+    }, userInterval * 60 * 60 * 1000); 
 
-    // Cleanup the interval when component unmounts
+    
     return () => clearInterval(interval);
   }, [cardId, userInterval, trigger]);
 
@@ -40,7 +40,7 @@ function TrackedCard({ cardId, cardImage, cardName, initialMarketPrice, interval
     localStorage.setItem(`${cardId}_timeLeft`, JSON.stringify(timeLeft));
   }, [userInterval, timeLeft, cardId]);
 
-  // Update the market price and last market price after fetching new data
+  
   useEffect(() => {
     if (cardDetails) {
       const updatedPrice =
@@ -48,24 +48,24 @@ function TrackedCard({ cardId, cardImage, cardName, initialMarketPrice, interval
         cardDetails?.data?.tcgplayer?.prices?.reverseHolofoil?.market ||
         initialMarketPrice;
 
-      // Update lastMarketPrice before updating marketPrice
+    
       setLastMarketPrice(marketPrice);
       setMarketPrice(updatedPrice);
     }
   }, [cardDetails, initialMarketPrice, marketPrice]);
 
-  // Countdown timer logic
+ 
   useEffect(() => {
     if (timeLeft > 0) {
       const countdown = setInterval(() => {
         setTimeLeft((prevTime) => prevTime - 1);
-      }, 1000); // Update every second
+      }, 1000); 
 
-      return () => clearInterval(countdown); // Cleanup interval on unmount
+      return () => clearInterval(countdown); 
     }
   }, [timeLeft]);
 
-  // Format the timeLeft in hours, minutes, and seconds
+
   const formatTime = (timeInSeconds) => {
     const hours = Math.floor(timeInSeconds / 3600);
     const minutes = Math.floor((timeInSeconds % 3600) / 60);
@@ -77,8 +77,8 @@ function TrackedCard({ cardId, cardImage, cardName, initialMarketPrice, interval
 
   const handleSetInterval = () => {
     if (inputInterval > 0) {
-      setUserInterval(inputInterval); // Update the interval based on user input
-      setTimeLeft(inputInterval * 60 * 60); // Reset the countdown timer
+      setUserInterval(inputInterval); 
+      setTimeLeft(inputInterval * 60 * 60); 
     }
   };
 
@@ -113,7 +113,7 @@ function TrackedCard({ cardId, cardImage, cardName, initialMarketPrice, interval
             <Card.Text>
               Last Market Price: <span className="text-secondary fw-bold">${lastMarketPrice || 'N/A'}</span>
             </Card.Text>
-            {/* Input field for setting the interval */}
+           
             <Form.Group controlId="intervalInput" className="mt-3">
               <Form.Label>Set Tracker Interval (Hours)</Form.Label>
               <Form.Control
@@ -127,7 +127,7 @@ function TrackedCard({ cardId, cardImage, cardName, initialMarketPrice, interval
               Set Tracker Interval
             </Button>
 
-            {/* Display the countdown timer */}
+           
             <div className="mt-3">
               <h5>Next Update In: {formatTime(timeLeft)}</h5>
             </div>

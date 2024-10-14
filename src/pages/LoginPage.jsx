@@ -7,8 +7,8 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import './Login.css'; // For custom styles
-
+import './Login.css';
+import deckbook from './deckbook.png';
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -18,14 +18,16 @@ function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // Hardcoded user credentials
+    
     if (username === 'demo' && password === 'password123') {
       const user = { username: 'demo', name: 'Demo User' };
 
-      // Dispatch the hardcoded user to Redux
+      
       dispatch(setUser(user));
 
-      // Navigate to the dashboard after successful login
+      localStorage.setItem('user', JSON.stringify(user));
+
+      
       navigate('/dashboard');
     } else {
       alert('Invalid credentials');
@@ -37,6 +39,14 @@ function Login() {
     <Container >
       <Row className="mt-5 justify-content-center">
         <Col md={8} lg={4} className="p-4 shadow rounded" style={{ backgroundColor: '#fff' }}>
+        <div className="text-center mb-4">
+          <img
+            src={deckbook}
+            alt="DeckBook"
+            className="rounded mx-auto d-block"
+            style={{ width: '150px', height: '150px' }} 
+          />
+        </div>
           <h1 className="text-center mb-4" style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>
             DeckBook
           </h1>

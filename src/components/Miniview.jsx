@@ -2,7 +2,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-//import Container from 'react-bootstrap/Container';
+
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -20,18 +20,18 @@ function Miniview({ className, title, buttonText, recentCards = [] }) {
         </Col>
       </Row>
 
-      {/* Display the 3 most recent card images */}
+   
       <Row className="g-4">
       {recentCards.length > 0 ? (
             recentCards.map((card, index) => (
               <Col key={index} md={4} >
                 <Card style={{ width: '90%' }}>
-                  <Card.Img variant="top" src={card.images.large} /> {/* Show the card image */}
+                  <Card.Img variant="top" src={card.images.large} /> 
                 </Card>
               </Col>
             ))
           ) : (
-            <p>No recent cards available.</p> // Fallback when no cards are available
+            <p>No recent cards available.</p> 
           )}
         </Row>
       </Card.Body>

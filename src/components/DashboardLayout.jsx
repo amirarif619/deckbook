@@ -10,7 +10,7 @@ function DashboardLayout({ children }) {
           <Sidebar />
         </div>
         <div className="col-10 p-4">
-          {children} {/* Main content goes here */}
+          {children} 
         </div>
       </div>
     </div>

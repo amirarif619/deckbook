@@ -4,10 +4,28 @@ import DashboardPage from './pages/DashboardPage.jsx'
 import CollectionPage from './pages/CollectionPage.jsx'
 import WishlistPage from './pages/WishlistPage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react'; 
+import { setUser } from './redux/userSlice';
+import { setCards } from './redux/cardSlice'
 function App() {
   const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      dispatch(setUser(JSON.parse(savedUser))); 
+    }
+
+    const savedCards = localStorage.getItem('cardList');
+    if (savedCards) {
+      dispatch(setCards(JSON.parse(savedCards))); 
+    }
+  }, [dispatch]);
+
+ 
 
   return (
     <Router>

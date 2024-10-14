@@ -1,18 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  cardList: [],
+  cardList: JSON.parse(localStorage.getItem('cardList')) || [],
   selectedCard: null,
   searchQuery: '',
   newCardResults: []
 };
 
 const cardSlice = createSlice({
+  
   name: 'cards',
   initialState,
   reducers: {
     setCards: (state, action) => {
       state.cards = action.payload; 
+      localStorage.setItem('cardList', JSON.stringify(state.cardList));
     },
     setSelectedCard: (state, action) => {
         state.selectedCard = action.payload; 
@@ -30,9 +32,11 @@ const cardSlice = createSlice({
     },
     addCard: (state, action) => {
       state.cardList.push(action.payload);
+      localStorage.setItem('cardList', JSON.stringify(state.cardList));
     },
     removeCard: (state, action) => {
       state.cardList = state.cardList.filter(card => card.id !== action.payload)
+      localStorage.setItem('cardList', JSON.stringify(state.cardList));
     },
     updateCard: (state, action) => {
       const { id, updates } = action.payload;
@@ -40,6 +44,7 @@ const cardSlice = createSlice({
       if (cardIndex !== -1) {
         state.cardList[cardIndex] = { ...state.cardList[cardIndex], ...updates };
       }
+      localStorage.setItem('cardList', JSON.stringify(state.cardList))
     },
   },
 });

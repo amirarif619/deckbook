@@ -4,22 +4,22 @@ import { useLazyGetCardsQuery } from '../redux/cardApiSlice';
 import AddCardModalDetails from './AddCardModalDetails';
 
 const AddCardModal = ({ show, handleClose }) => {
-  const [searchTerm, setSearchTerm] = useState(''); // State for search term
-  const [trigger, { data: searchResults, isLoading, error }] = useLazyGetCardsQuery(); // API search query
-  const [selectedCard, setSelectedCard] = useState(null); // Track the selected card
-  const [showCardDetails, setShowCardDetails] = useState(false); // Track the second modal state
+  const [searchTerm, setSearchTerm] = useState(''); 
+  const [trigger, { data: searchResults, isLoading, error }] = useLazyGetCardsQuery(); 
+  const [selectedCard, setSelectedCard] = useState(null); 
+  const [showCardDetails, setShowCardDetails] = useState(false); 
   
   const handleSearch = () => {
-    trigger(searchTerm); // Trigger search when clicking "Search"
+    trigger(searchTerm); 
   };
 
   const handleSelectCard = (card) => {
-    setSelectedCard(card); // Set the selected card for the details modal
-    setShowCardDetails(true); // Show the second modal for card details
+    setSelectedCard(card); 
+    setShowCardDetails(true); 
   };
 
   const handleCloseCardDetails = () => {
-    setShowCardDetails(false); // Close the second modal
+    setShowCardDetails(false); 
   };
 
   return (
@@ -29,7 +29,7 @@ const AddCardModal = ({ show, handleClose }) => {
           <Modal.Title>Add a New Card</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Search Bar */}
+          
           <Form className="mb-4">
             <Form.Control 
               type="text" 
@@ -40,7 +40,7 @@ const AddCardModal = ({ show, handleClose }) => {
             <Button onClick={handleSearch} className="mt-2">Search</Button>
           </Form>
 
-          {/* Display search results in a 6x6 grid */}
+        
           {isLoading && <p>Loading...</p>}
           {error && <p>Error: {error.message}</p>}
 
@@ -51,7 +51,7 @@ const AddCardModal = ({ show, handleClose }) => {
                   <img src={card.images.small} alt={card.name} style={{ width: '100%' }} />
                   <Button 
                     className="mt-2" 
-                    onClick={() => handleSelectCard(card)} // Handle selecting the card for details
+                    onClick={() => handleSelectCard(card)} 
                   >
                     Select Card
                   </Button>
@@ -65,7 +65,7 @@ const AddCardModal = ({ show, handleClose }) => {
         </Modal.Footer>
       </Modal>
 
-      {/* Second Modal for Card Details */}
+     
       {selectedCard && (
         <AddCardModalDetails
           show={showCardDetails}

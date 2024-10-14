@@ -2,14 +2,14 @@
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateCard } from '../redux/cardSlice'; // Action to update card in Redux
+import { updateCard } from '../redux/cardSlice'; 
 
 const EditCardModal = ({ show, handleClose, card, onSave }) => {
   const [psaGrade, setPsaGrade] = useState(card?.psaGrade || 'Ungraded');
   const [notes, setNotes] = useState(card?.notes || '');
   const dispatch = useDispatch();
 
-  // Pre-fill form when the modal is opened with the card's data
+
   useEffect(() => {
     if (card) {
       setPsaGrade(card.psaGrade || 'Ungraded');
@@ -17,7 +17,7 @@ const EditCardModal = ({ show, handleClose, card, onSave }) => {
     }
   }, [card]);
 
-  // Handle form submission to update the card
+  
   const handleSaveChanges = () => {
     const updatedCard = {
       ...card,
@@ -26,12 +26,12 @@ const EditCardModal = ({ show, handleClose, card, onSave }) => {
     
     };
     
-    onSave({ ...card, ...updatedCard }); // Update the local state in the parent
+    onSave({ ...card, ...updatedCard }); 
 
-    // Dispatch action to update the card in Redux, sending the id and updates
+   
     dispatch(updateCard({ id: card.id, updates: updatedCard }));
   
-    handleClose(); // Close the modal after saving
+    handleClose(); 
   };
   return (
     <Modal show={show} onHide={handleClose} centered>
@@ -40,7 +40,7 @@ const EditCardModal = ({ show, handleClose, card, onSave }) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
-          {/* PSA Grade Dropdown */}
+         
           <Form.Group controlId="psaGrade">
             <Form.Label>PSA Grade</Form.Label>
             <Form.Control
@@ -55,7 +55,7 @@ const EditCardModal = ({ show, handleClose, card, onSave }) => {
             </Form.Control>
           </Form.Group>
 
-          {/* Notes Textarea */}
+        
           <Form.Group controlId="notes" className="mt-3">
             <Form.Label>Notes</Form.Label>
             <Form.Control

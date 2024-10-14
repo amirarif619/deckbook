@@ -15,7 +15,7 @@ export const cardApi = createApi({
                 query: (searchTerm = '') => `cards?q=name:${encodeURIComponent(searchTerm)}&pageSize=20`,
             }),
             getCardById: builder.query({
-                query: (cardId) => `cards/${cardId}`, // Fetch card by ID
+                query: (cardId) => `cards/${cardId}`, 
               }),
         }),
     });

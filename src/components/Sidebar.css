@@ -1,10 +1,10 @@
 
 .sidebar-link {
-  color: #ffffff !important; /* Change the color to white */
-  font-size: 1.25rem; /* Increase text size */
-  padding: 10px 0; /* Add padding for spacing */
+  color: #ffffff !important; 
+  font-size: 1.25rem; 
+  padding: 10px 0;
 }
 
 .sidebar-link:hover {
-  color: #ff8c00 !important; /* Change the color on hover to orange */
+  color: #ff8c00 !important; 
 }
